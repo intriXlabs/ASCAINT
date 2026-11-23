@@ -1,14 +1,14 @@
-Tired of manually arranging characters to create ASCII diagrams and text-based art in your notes?
+# Tired of manually arranging characters to create ASCII diagrams and text-based art in your notes?
 
-TypeInk lets you draw them visually on a terminal canvas and export the result as plain text.
+**ASCAINT — ASCII Character Art Interface for Native Terminals** lets you draw them visually on a terminal canvas and export the result as plain text.
 
-Press Ctrl + P to export your canvas to TypeInk.txt, preserving the character layout and spacing—ready to copy into Obsidian, Markdown documents, README files, code comments, or anywhere plain text is useful.
+Press Ctrl + P to export your canvas to ASCAINT.txt, preserving the character layout and spacing—ready to copy into Obsidian, Markdown documents, README files, code comments, or anywhere plain text is useful.
 
 Draw → Export → Paste.
 
 ---
 
-# TypeInk
+# ASCAINT — ASCII Character Art Interface for Native Terminals
 
 <div align="center">
 
@@ -40,9 +40,10 @@ terminal you already have.*
 </div>
 
 ---
+
 ## Important Note
 
-TypeInk is designed for **POSIX terminals** (Linux, macOS, BSD, WSL) and
+ASCAINT is designed for **POSIX terminals** (Linux, macOS, BSD, WSL) and
 requires **ANSI escape codes**, **mouse reporting** (`?1003` any-motion
 tracking) and **24-bit true color** support.
 
@@ -87,7 +88,7 @@ ossyNMMMNyMMhsssssssssssssshmmmhssssssso   WM: Mutter
 - [Quick Start](#-quick-start)
 - [Controls](#-controls)
 - [Use Cases](#-use-cases)
-- [Why TypeInk](#-why-typeink)
+- [Why ASCAINT](#-why-ascaint)
 - [Comparison](#-comparison)
 - [Design Philosophy](#-design-philosophy)
 - [Things To Be Noticed](#-things-to-be-noticed)
@@ -97,16 +98,16 @@ ossyNMMMNyMMhsssssssssssssshmmmhssssssso   WM: Mutter
 
 ## 🌟 Overview
 
-TypeInk is a paint program that lives entirely inside your terminal. It
+ASCAINT is a paint program that lives entirely inside your terminal. It
 takes the character grid you are already looking at — and turns it into a
 canvas. Pencil, eraser, line, rectangle, ellipse: armed with a key chord,
 anchored with a click, previewed live in grey, committed in white ink.
 
-The name is a collision of two ideas: **"Type"** and **"Ink"**. The whole
+The name is a collision of two ideas: **"ASCII"** and **"Ink"**. The whole
 keyboard is the brush — type any printable character and it becomes the ink
 that strokes and shapes are drawn with. A `#` brush draws `#`-shaped
 ellipses. An `@` brush signs your name across the grid. And when the
-drawing is done, `ctrl+p` types the whole canvas into `TypeInk.txt`,
+drawing is done, `ctrl+p` types the whole canvas into `ASCAINT.txt`,
 character for character, exactly as it looks on screen.
 
 The terminal stops being a place where text is *printed* and becomes a
@@ -115,7 +116,7 @@ place where pictures are *drawn*.
 ### Why a Character Canvas?
 
 Terminals are fast, sharp, and everywhere. But drawing in one usually means
-adopting a full TUI framework — or nothing at all. TypeInk gives the grid a
+adopting a full TUI framework — or nothing at all. ASCAINT gives the grid a
 pointer and a paintbox.
 
 - **Zero Dependencies** — No libraries. No frameworks. No linker headaches.
@@ -162,11 +163,11 @@ pointer and a paintbox.
   step, a typed character is one step
 - **New Canvas** — `ctrl+n` wipes the display; the wiped picture stays one
   `ctrl+z` away
-- **Text Export** — `ctrl+p` writes `TypeInk.txt` into the working
+- **Text Export** — `ctrl+p` writes `ASCAINT.txt` into the working
   directory, preserving interior spacing exactly
 
 ### 🧩 Developer-Friendly
-- **One Editable File** — `TypeInk.cpp` is the only file meant to change
+- **One Editable File** — `ASCAINT.cpp` is the only file meant to change
 - **One Handler per Input Source** — New inputs slot in without touching
   the other handlers
 - **Safe by Default** — Bounds-checked drawing, clamped cursor, no
@@ -177,7 +178,7 @@ pointer and a paintbox.
 
 ## 🎭 The Two Families
 
-Every tool in TypeInk belongs to one of two families. You feel the
+Every tool in ASCAINT belongs to one of two families. You feel the
 difference in your hand.
 
 ### ▸ Hold Tools — *The Brush*
@@ -223,11 +224,11 @@ the second click makes it real.
 │   └── main.cpp        character framebuffer (provided - do not modify)
 ├── specs
 │   └── README.md       controls and tables etc.
-├── TypeInk.cpp         the paint application (edit freely)
+├── ASCAINT.cpp         the paint application (edit freely)
 └── README.md           this document
 ```
 
-The layering is strict: `TypeInk.cpp` includes the two modules directly and
+The layering is strict: `ASCAINT.cpp` includes the two modules directly and
 consumes them **only** through their exposed APIs.
 
 ```text
@@ -235,9 +236,9 @@ consumes them **only** through their exposed APIs.
 │                     Application Layer                       │
 │   ┌──────────────┐  ┌──────────────┐  ┌────────────────┐   │
 │   │  7 tools +   │  │ undo / redo  │  │ ctrl+p export  │   │
-│   │  frame loop  │  │  snapshots   │  │  TypeInk.txt   │   │
+│   │  frame loop  │  │  snapshots   │  │  ASCAINT.txt   │   │
 │   └──────────────┘  └──────────────┘  └────────────────┘   │
-│                      TypeInk.cpp                            │
+│                      ASCAINT.cpp                            │
 └─────────────────────────────────────────────────────────────┘
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
@@ -268,7 +269,7 @@ Once per loop pass:
 t.update()
   │
   ├─ selectTool        ctrl+letter chords: toggle / switch / cancel trace
-  ├─ exportCanvas      ctrl+p: canvas buffer -> TypeInk.txt
+  ├─ exportCanvas      ctrl+p: canvas buffer -> ASCAINT.txt
   ├─ newCanvas         ctrl+n: record + wipe the canvas, back to pencil
   ├─ undoStep          ctrl+z: restore the previous recorded state
   ├─ redoStep          ctrl+y: restore the last undone state
@@ -285,7 +286,7 @@ t.update()
   └─ paintTrace        grey sparse overlay (only if tracing)
 ```
 
-### Inside TypeInk.cpp
+### Inside ASCAINT.cpp
 
 | Section | Contents                                                             |
 |---------|----------------------------------------------------------------------|
@@ -327,14 +328,14 @@ render.
 
 ```bash
 # Clone the repository
-git clone https://github.com/intriXlabs/TypeInk.git
-cd TypeInk
+git clone https://github.com/intriXlabs/ASCAINT.git
+cd ASCAINT
 
 # Compile — one command builds all three layers
-g++ -std=c++17 TypeInk.cpp -o typeink
+g++ -std=c++17 ASCAINT.cpp -o ascaint
 
 # Run
-./typeink
+./ascaint
 ```
 
 ### Your First Drawing (60 seconds)
@@ -346,10 +347,10 @@ g++ -std=c++17 TypeInk.cpp -o typeink
 3. **Line** — press `ctrl+l`, click a start, move the mouse (watch the grey
    trace), click again to commit.
 4. **Undo** — press `ctrl+z`. The line is gone. `ctrl+y` brings it back.
-5. **Save** — press `ctrl+p`. Your drawing now exists as `TypeInk.txt`.
+5. **Save** — press `ctrl+p`. Your drawing now exists as `ASCAINT.txt`.
 6. **Exit** — `ctrl+c` (or `Esc`). The terminal is restored.
 
-The window title follows you the whole way: `TypeInk - tool: Line`.
+The window title follows you the whole way: `ASCAINT - tool: Line`.
 
 ---
 
@@ -379,7 +380,7 @@ again disarms back to it.
 | any printable   | pick it as the brush character, paint it, advance like a typewriter |
 | arrow keys      | move the text cursor one cell                                 |
 | backspace       | clear the cell under the cursor                               |
-| ctrl+p          | export the canvas to TypeInk.txt                              |
+| ctrl+p          | export the canvas to ASCAINT.txt                              |
 | ctrl+n          | wipe the canvas and start a new drawing                       |
 | ctrl+z          | undo the last action                                          |
 | ctrl+y          | redo the last undone action                                   |
@@ -422,7 +423,7 @@ button press, so committing can never smear stray pencil pixels.
   screen.
 - The file is **overwritten** on every export. A grey trace in progress is
   a preview only, so it is never exported.
-- The title confirms: `TypeInk - tool: Pencil - saved TypeInk.txt` (or
+- The title confirms: `ASCAINT - tool: Pencil - saved ASCAINT.txt` (or
   `... - save failed`).
 
 ---
@@ -462,11 +463,11 @@ X11, no port forwarding, no desktop.
 
 ---
 
-## 🌈 Why TypeInk
+## 🌈 Why ASCAINT
 
 Most terminal drawing falls into one of two camps: full TUI frameworks
 that want to own your whole screen and your weekend, or nothing at all.
-TypeInk sits in between.
+ASCAINT sits in between.
 
 It doesn't manage windows. It doesn't ask for a build system, a config
 file, or a new way of thinking. It uses the grid that is already there,
@@ -480,7 +481,7 @@ zero dependencies — this is what it's for.
 
 ## ⚖️ Comparison
 
-| | **TypeInk** | Manual printf art | Full TUI frameworks |
+| | **ASCAINT** | Manual printf art | Full TUI frameworks |
 |---|---|---|---|
 | **Dependencies** | None | None | Several |
 | **Setup** | One compile command | Trivial | Framework to learn |
@@ -492,17 +493,17 @@ zero dependencies — this is what it's for.
 | **Feel** | Alive, instant | Static | Functional, boxy |
 | **Learning curve** | Minutes | Seconds | Hours to days |
 
-TypeInk isn't trying to replace your TUI library. It's trying to make the
+ASCAINT isn't trying to replace your TUI library. It's trying to make the
 terminal *drawable*.
 
 ---
 
 ## 🧬 Design Philosophy
 
-TypeInk is small on purpose.
+ASCAINT is small on purpose.
 
 - **Three layers, one owner** — input and rendering are provided modules;
-  `TypeInk.cpp` is the only file meant to be edited. The boundary is the
+  `ASCAINT.cpp` is the only file meant to be edited. The boundary is the
   API list above, nothing more.
 - **One handler per input source** — tool keys, mouse, typing, history:
   each gets one function, so new inputs slot in without touching the rest.
@@ -540,7 +541,7 @@ change anything:
 - **A space brush draws invisible shapes.** Preview and commit use the
   same brush character, so a space brush is consistent — and pointless.
   Pick a visible character.
-- **Trailing spaces never reach the file.** `TypeInk.txt` drops the
+- **Trailing spaces never reach the file.** `ASCAINT.txt` drops the
   invisible end-of-line spaces; interior spacing is preserved exactly.
 - **Undo history is memory-only.** It dies with the process and is capped
   at 100 whole-canvas snapshots.
@@ -559,6 +560,6 @@ Licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 *"A key arms the tool. A click anchors. The canvas remembers."*
 
-[⬆ Back to Top](#typeink)
+[⬆ Back to Top](#ascaint--ascii-character-art-interface-for-native-terminals)
 
 </div>
